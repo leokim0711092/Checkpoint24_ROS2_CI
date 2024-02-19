@@ -14,8 +14,9 @@ find_package(std_msgs REQUIRED)
 find_package(action_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(rclcpp_action REQUIRED)
-find_package(tortoisebot_waypoints REQUIRED)
 
+# Conditional find_package for tortoisebot_waypoints
+find_package(tortoisebot_waypoints QUIET)
 
 # uncomment the following section in order to fill in
 # further dependencies manually.
@@ -25,41 +26,39 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   DEPENDENCIES geometry_msgs
 )
 
+if(tortoisebot_waypoints_FOUND)
+  if(BUILD_TESTING)
+    find_package(ament_lint_auto REQUIRED)
+    find_package(ament_cmake_gtest REQUIRED)
 
-if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  find_package(ament_cmake_gtest REQUIRED)
+    set(TESTFILES
+        test/test_client.cpp
+        )
+    # Add a gtest executables
+    ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES})
+    target_link_libraries(${PROJECT_NAME}_test waypoint_gtest)
+    ament_target_dependencies(${PROJECT_NAME}_test rclcpp rclcpp_action std_msgs geometry_msgs rclcpp_action tortoisebot_waypoints nav_msgs )
+    install(TARGETS
+          ${PROJECT_NAME}_test
+          # Install the generated test executable file to the path after DESTINATION
+          DESTINATION lib/${PROJECT_NAME})
+    # uncomment to enforce lintners and static code analyzers defined in ament_lint_common package        
+    # ament_lint_auto_find_test_dependencies()
+  endif()
 
-  set(TESTFILES
-      test/test_client.cpp
-      )
-  # Add a gtest executables
-  ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES})
-  target_link_libraries(${PROJECT_NAME}_test waypoint_gtest)
-  ament_target_dependencies(${PROJECT_NAME}_test rclcpp rclcpp_action std_msgs geometry_msgs rclcpp_action tortoisebot_waypoints nav_msgs )
+  ## ADD LIBRARY
+  include_directories(include)
+  add_library(waypoint_gtest src/tortoisebot_action_server.cpp )
+  ament_target_dependencies(waypoint_gtest
+    rclcpp rclcpp_action std_msgs geometry_msgs rclcpp_action tortoisebot_waypoints nav_msgs)
+
+  add_executable(Waypoint_node src/tortoisebot_action_server.cpp)
+  ament_target_dependencies(Waypoint_node rclcpp rclcpp_action std_msgs geometry_msgs rclcpp_action tortoisebot_waypoints nav_msgs )
+
   install(TARGETS
-        ${PROJECT_NAME}_test
-        # Install the generated test executable file to the path after DESTINATION
-        DESTINATION lib/${PROJECT_NAME})
-  # uncomment to enforce lintners and static code analyzers defined in ament_lint_common package        
-  # ament_lint_auto_find_test_dependencies()
+      Waypoint_node
+      DESTINATION lib/${PROJECT_NAME}
+  )
 endif()
-
-## ADD LIBRARY
-include_directories(include)
-add_library(waypoint_gtest src/tortoisebot_action_server.cpp )
-ament_target_dependencies(waypoint_gtest
-  rclcpp rclcpp_action std_msgs geometry_msgs rclcpp_action tortoisebot_waypoints nav_msgs)
-
-
-add_executable(Waypoint_node src/tortoisebot_action_server.cpp)
-ament_target_dependencies(Waypoint_node rclcpp rclcpp_action std_msgs geometry_msgs rclcpp_action tortoisebot_waypoints nav_msgs )
-
-
-
-install(TARGETS
-	Waypoint_node
-    DESTINATION lib/${PROJECT_NAME}
- )
 
 ament_package()
