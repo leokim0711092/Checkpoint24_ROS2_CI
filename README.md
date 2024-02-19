@@ -2,7 +2,7 @@
 
 This repository focuses on establishing a continuous integration pipeline using Jenkins, streamlining the process of triggering CI workflows whenever a pull request is made to a remote repository.
 
-The Jenkins pipeline coordinates a sequence of vital tasks. Initially, it gains access to the Git repository. Subsequently, it proceeds to execute `docker build` to construct the image, followed by execution of `docker compose to run the container. Within the Dockerfile, the pipeline executes ROS1 Unit Tests to verify the functionality of the waypoint server. This comprehensive sequence forms the lifecycle of our CI process.
+The Jenkins pipeline coordinates a sequence of vital tasks. Initially, it gains access to the Git repository. Subsequently, it proceeds to execute `docker build` to construct the image, followed by execution of `docker compose to run the container. Within the Dockerfile, the pipeline executes ROS2 Google Tests to verify the functionality of the waypoint server. This comprehensive sequence forms the lifecycle of our CI process.
 
 ## Checklist of Installation
 
@@ -35,7 +35,7 @@ admin: admin
 ```
 You sholud see the CP24_ROS2_CI when you login 
 
-<img width="1352" alt="image" src="https://github.com/leokim0711092/Checkpoint24_ROS1_CI/assets/106298370/8c7c9ae0-c152-4992-8a52-f4227d62d933">
+<img width="1222" alt="image" src="https://github.com/leokim0711092/Checkpoint24_ROS2_CI/assets/106298370/4c336d2d-4ce1-40a0-86e3-4c4093c8f404">
 
 
 3\. Now let's trigger the build through a pull request:
@@ -51,8 +51,8 @@ View consile output in Jenkins to check result
 <img width="261" alt="image" src="https://github.com/leokim0711092/Checkpoint24_ROS1_CI/assets/106298370/3f5f084d-a290-40eb-9d44-7caad9ab7e91">
 
 After the execution is complete, you will be able to see the below outputs:
+<img width="485" alt="image" src="https://github.com/leokim0711092/Checkpoint24_ROS2_CI/assets/106298370/15eb490a-5494-4c0a-93ea-5e1a72019e43">
 
-<img width="649" alt="image" src="https://github.com/leokim0711092/Checkpoint24_ROS1_CI/assets/106298370/25720cd1-b630-4db4-bedd-70a20e0fb00c">
 
-<img width="613" alt="image" src="https://github.com/leokim0711092/Checkpoint24_ROS1_CI/assets/106298370/f70fbf11-0ac8-4bc9-963c-ad82569f9314">
+<img width="1259" alt="image" src="https://github.com/leokim0711092/Checkpoint24_ROS2_CI/assets/106298370/3907700c-e92e-4ca1-9678-52b48452c612">
 
