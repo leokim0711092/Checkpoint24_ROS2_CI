@@ -48,9 +48,11 @@ You sholud see the CP24_ROS2_CI when you login
 ## Output
 
 View consile output in Jenkins to check result
+
 <img width="261" alt="image" src="https://github.com/leokim0711092/Checkpoint24_ROS1_CI/assets/106298370/3f5f084d-a290-40eb-9d44-7caad9ab7e91">
 
 After the execution is complete, you will be able to see the below outputs:
+
 <img width="485" alt="image" src="https://github.com/leokim0711092/Checkpoint24_ROS2_CI/assets/106298370/15eb490a-5494-4c0a-93ea-5e1a72019e43">
 
 
