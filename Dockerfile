@@ -15,6 +15,7 @@ WORKDIR /ros2_ws
 
 # Build your ROS packages
 RUN /bin/bash -c "source /opt/ros/galactic/setup.bash; cd /ros2_ws; colcon build"
+RUN /bin/bash -c "source /opt/ros/galactic/setup.bash; cd /ros2_ws; colcon build --packages-select tortoisebot_waypoints --symlink-install"
 
 # Source the workspace every time a new shell is opened in the container
 RUN echo source /ros2_ws/install/setup.bash >> ~/.bashrc
