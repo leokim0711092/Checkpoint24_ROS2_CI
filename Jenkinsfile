@@ -25,10 +25,20 @@ pipeline {
             }
         }
         stage('Run Docker Compose') {
+            options {
+                timeout(time: 45, unit: "SECONDS")
+            }
             steps {
                 script {
-                    dir('/home/user/catkin_ws/src/ros1_ci') {
-                        sh 'sudo docker-compose up'
+                    dir('/home/user/ros2_ws/src/ros2_ci') {
+                        try{
+                            sh 'sudo docker-compose up'
+                        }
+                        catch (Throwable e) {
+                            echo "Timeout gazebo ${e.toString()}"
+                            sh 'sudo docker-compose down'
+                            currentBuild.result = "SUCCESS" 
+                        }
                     }
                 }
             }

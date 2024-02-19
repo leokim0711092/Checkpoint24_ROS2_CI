@@ -25,4 +25,4 @@ RUN apt-get update && apt-get install -y ros-galactic-xacro ros-galactic-urdf
 RUN apt-get update && apt-get install -y ros-galactic-joint-state-publisher ros-galactic-robot-state-publisher ros-galactic-gazebo-plugins
 
 # Set the entry point to start a bash shell
-CMD /bin/bash -c "source /ros2_ws/install/setup.bash; ros2 launch tortoisebot_waypoints waypoints_set.launch.py use_sim_time:=True"
+CMD /bin/bash -c "source /ros2_ws/install/setup.bash; ros2 launch tortoisebot_waypoints waypoints.launch.py use_sim_time:=True"
