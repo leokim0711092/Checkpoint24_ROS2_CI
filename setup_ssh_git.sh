@@ -50,6 +50,19 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
 ssh-add ~/.ssh/id_rsa_2
 
+# Create the config file in ~/.ssh directory
+cat <<EOF > ~/.ssh/config
+Host github.com-repo1
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_rsa
+
+Host github.com-repo2
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_rsa_2
+EOF
+
 # Config git
 git config --global user.name 'Jenkins Course'
 git config --global user.email 'jenkins@theconstruct.ai'
