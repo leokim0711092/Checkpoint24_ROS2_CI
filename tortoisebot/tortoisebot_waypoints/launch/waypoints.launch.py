@@ -23,7 +23,7 @@ def generate_launch_description():
 
     action_server = Node(
         package='tortoisebot_waypoints',
-        executable='action_server',
+        executable='Waypoint_node',
         name='tortoisebot_as'
     )
     return LaunchDescription([
